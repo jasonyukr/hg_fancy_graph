@@ -28,7 +28,7 @@ fn write_with_convert(graph_end: &mut bool, b: u8) {
     } else if b == '\\' as u8 {
         print!("{}", '╲');
     } else if b == 'o' as u8 {
-        print!("{}", '✪');
+        print!("{}", '✱');
     } else if b == '@' as u8 {
         print!("{}", '⦿');
     } else {
