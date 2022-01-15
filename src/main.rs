@@ -8,42 +8,37 @@ enum State {
     Csi,
 }
 
-fn write_with_convert(graph_end: &mut bool, b: u8) {
+fn print_conv(graph_end: &mut bool, ch: char) {
     if *graph_end == false {
-        if b >= '0' as u8 && b <= '9' as u8 {
-            *graph_end = true;
-        } else if b >= 'a' as u8 && b <= 'f' as u8 {
-            *graph_end = true;
-        }
+        *graph_end = ch.is_digit(16)
     }
     if *graph_end == true {
-        print!("{}", b as char);
+        print!("{}", ch);
         return;
     }
 
-    if b == '|' as u8 {
-        print!("{}", '\u{2502}'); // │
-    } else if b == '/' as u8 {
-        print!("{}", '\u{2571}'); // ╱
-    } else if b == '\\' as u8 {
-        print!("{}", '\u{2572}'); // ╲
-    } else if b == 'o' as u8 {
-        print!("{}", '\u{25cf}'); // ●
-    } else if b == '@' as u8 {
-        print!("{}", '\u{25cb}'); // ○
-    //} else if b == '+' as u8 {
-    //    print!("{}", '\u{253c}'); // ┼
-    } else if b == '-' as u8 {
-        print!("{}", '\u{2500}'); // ─
-    } else {
-        print!("{}", b as char);
+    let conv;
+    match ch {
+        '|'  => conv = '\u{2502}',
+        '/'  => conv = '\u{2571}',
+        '\\' => conv = '\u{2572}',
+        'o'  => conv = '\u{25cf}',
+        '@'  => conv = '\u{25cb}',
+//      '+'  => conv = '\u{253c}',
+        '-'  => conv = '\u{2500}',
+         _   => conv = ch
     }
+    print!("{}", conv);
 }
 
 fn main() {
     let stdin = io::stdin();
     for line in stdin.lock().lines() {
-        let line_data = line.unwrap();
+        let line_data;
+        match line {
+            Ok(data) => line_data = data,
+            Err(_) => continue
+        }
         let mut state = State::Normal;
         let mut graph_end = false;
         for b in line_data.bytes() {
@@ -55,7 +50,7 @@ fn main() {
                             print!("{}", b as char);
                         }
                     } else {
-                        write_with_convert(&mut graph_end, b);
+                        print_conv(&mut graph_end, b as char);
                     }
                 },
                 State::Escape => {
