@@ -23,7 +23,7 @@ fn print_conv(graph_end: &mut bool, ch: char) {
         '/'  => conv = '\u{2571}',
         '\\' => conv = '\u{2572}',
         'o'  => conv = '\u{25cf}',
-        '@'  => conv = '\u{25cb}',
+        '@'  => conv = '\u{25a0}',
 //      '+'  => conv = '\u{253c}',
         '-'  => conv = '\u{2500}',
          _   => conv = ch
