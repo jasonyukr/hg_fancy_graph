@@ -19,7 +19,7 @@ fn print_conv(graph_end: &mut bool, ch: char) {
 
     let conv;
     match ch {
-        '|'  => conv = '\u{2502}',
+//        '|'  => conv = '\u{2502}',
         '/'  => conv = '\u{2571}',
         '\\' => conv = '\u{2572}',
         'o'  => conv = '\u{25cf}',
